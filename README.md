@@ -26,7 +26,7 @@ Frontend running at: `http://localhost:5173`
 ### Frontend
 
 * React (Vite)
-* Tailwind CSS
+* CSS
 * JavaScript
 
 ### Backend
@@ -121,7 +121,7 @@ JWT_SECRET=your_secret_key
 
 ## 👩‍💻 Author
 
-Soumya Mohan
+GPSJ
 B.Tech CSE (KTU)
 
 ---
