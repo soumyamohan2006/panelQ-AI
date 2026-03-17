@@ -2,10 +2,7 @@
 
 PanelQ is a full-stack web application designed to help users practice interviews using AI. It provides real-time feedback, behavioral analysis, and technical evaluation to improve confidence and performance.
 
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e62bdd90-1dd5-45ac-9346-21caa178e5a1" />
-
----
+<img width="1917" height="973" alt="image" src="https://github.com/user-attachments/assets/a3782d35-bc76-4c74-a54e-09c3611936b8" />
 
 ## 🌐 Live Preview
 
