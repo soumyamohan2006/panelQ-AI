@@ -29,6 +29,7 @@ export default function Navbar() {
         <div className="nav-links">
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/setup" className="nav-link">Interview</Link>
+          <Link to="/dashboard" className="nav-link">Interview Room</Link>
           
           {!user ? (
             <>
