@@ -1,6 +1,16 @@
 import { Request, Response } from 'express';
 import InterviewResult from '../models/InterviewResult';
-import { evaluateAnswers, generateQuestions } from '../services/aiEvaluationService';
+import { evaluateAnswers, generateQuestions, chatReply } from '../services/aiEvaluationService';
+
+export const chat = async (req: Request, res: Response) => {
+  const { systemPrompt, messages } = req.body;
+  try {
+    const reply = await chatReply(systemPrompt, messages);
+    res.json({ reply });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const getQuestions = async (req: Request, res: Response) => {
   const { type } = req.query;

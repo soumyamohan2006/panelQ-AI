@@ -1,23 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import SetupInterview from './pages/SetupInterview';
-import Interview from './pages/Interview';
-import Result from './pages/Result';
+import Home from './Home';
+import Login from './Login';
+import Register from './Register';
+import SetupInterview from './SetupInterview';
+import Interview from './Interview';
+import Result from './Result';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import Dashboard from './Dashboard';
+import ChatInterview from './ChatInterview';
+import Preparation from './Preparation';
 
-export default function App() {
+function Layout() {
+  const location = useLocation();
+  const showFooter = location.pathname === '/';
   return (
-    <AuthProvider>
-      <Router>
-        <div className="app-wrapper">
-          <Navbar />
-          <Routes>
+    <div className="app-wrapper">
+      <Navbar />
+      <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/chat-interview" element={<ChatInterview />} />
+            <Route path="/preparation" element={<Preparation />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             
@@ -46,10 +52,17 @@ export default function App() {
                 </ProtectedRoute>
               } 
             />
-          </Routes>
-          
-          <Footer />
-        </div>
+      </Routes>
+      {showFooter && <Footer />}
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Layout />
       </Router>
     </AuthProvider>
   );

@@ -1,0 +1,66 @@
+.card {
+  background: #161616;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  padding: 28px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 2px solid #222;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 28px rgba(255, 106, 0, 0.15);
+  border-color: #ff6a0055;
+}
+
+.selected {
+  border-color: #ff6a00;
+  box-shadow: 0 8px 32px rgba(255, 106, 0, 0.25);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2a2a2a;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin: 0;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 0.82rem;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+.startBtn {
+  margin-top: 8px;
+  padding: 9px 22px;
+  background: linear-gradient(135deg, #ff6a00, #cc3700);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  width: 100%;
+}
+
+.startBtn:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+}
