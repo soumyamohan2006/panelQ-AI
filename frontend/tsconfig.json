@@ -20,7 +20,9 @@
         "./*"
       ]
     },
+    "types": ["vite/client", "node"],
     "allowImportingTsExtensions": true,
     "noEmit": true
-  }
+  },
+  "exclude": ["node_modules", "dist", "verify-ai.ts"]
 }

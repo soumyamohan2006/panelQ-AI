@@ -12,6 +12,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './Dashboard';
 import ChatInterview from './ChatInterview';
 import Preparation from './Preparation';
+import Profile from './Profile';
+import ChangePassword from './ChangePassword';
 
 function Layout() {
   const location = useLocation();
@@ -51,6 +53,22 @@ function Layout() {
                   <Result />
                 </ProtectedRoute>
               } 
+            />
+            <Route 
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route 
+              path="/change-password"
+              element={
+                <ProtectedRoute>
+                  <ChangePassword />
+                </ProtectedRoute>
+              }
             />
       </Routes>
       {showFooter && <Footer />}

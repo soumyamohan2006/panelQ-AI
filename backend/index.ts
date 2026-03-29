@@ -1,9 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import fs from 'fs';
 import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
 import interviewRoutes from './routes/interviewRoutes';
+import profileRoutes from './routes/profileRoutes';
 
 dotenv.config();
 
@@ -16,9 +18,15 @@ async function startServer() {
   app.use(cors());
   app.use(express.json());
 
+  // Ensure uploads directory exists
+  fs.mkdirSync('uploads/resumes', { recursive: true });
+
+  app.use('/uploads', express.static('uploads'));
+
   // --- API Routes ---
   app.use('/api', authRoutes);
   app.use('/api', interviewRoutes);
+  app.use('/api', profileRoutes);
 
   app.get('/', (req, res) => {
     res.send('PanelQ API is running. Direct frontend access is on port 5173.');

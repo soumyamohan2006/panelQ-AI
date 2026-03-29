@@ -20,6 +20,15 @@ export default function SetupInterview() {
 
   return (
     <div className="setup-container">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+        <button
+          onClick={() => navigate('/')}
+          className="btn-secondary"
+          style={{ padding: '0.55rem 1rem', borderRadius: '0.5rem' }}
+        >
+          Home
+        </button>
+      </div>
       <div className="setup-header">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <div className="step-indicator">

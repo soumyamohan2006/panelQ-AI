@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import InterviewResult from '../models/InterviewResult';
+import User from '../models/User';
 import { evaluateAnswers, generateQuestions, chatReply } from '../services/aiEvaluationService';
 
 export const chat = async (req: Request, res: Response) => {
@@ -67,6 +68,36 @@ export const submitInterview = async (req: any, res: Response) => {
       technicalScore: finalTech,
       confidenceScore: finalConf,
     });
+
+    // Update user's interview stats
+    const user = await User.findById(userId);
+    if (user) {
+      const currentStats = user.interviewStats;
+      const newTotal = currentStats.totalInterviews + 1;
+      const newAverage = ((currentStats.averageScore * currentStats.totalInterviews) + finalScore) / newTotal;
+
+      // Determine strong and weak areas based on scores
+      const strongAreas = [];
+      const weakAreas = [];
+
+      if (finalComm >= 70) strongAreas.push('Communication');
+      else if (finalComm < 50) weakAreas.push('Communication');
+
+      if (finalTech >= 70) strongAreas.push('Technical Skills');
+      else if (finalTech < 50) weakAreas.push('Technical Skills');
+
+      if (finalConf >= 70) strongAreas.push('Confidence');
+      else if (finalConf < 50) weakAreas.push('Confidence');
+
+      user.interviewStats = {
+        totalInterviews: newTotal,
+        averageScore: Math.round(newAverage * 100) / 100, // Round to 2 decimal places
+        strongAreas: [...new Set([...currentStats.strongAreas, ...strongAreas])], // Remove duplicates
+        weakAreas: [...new Set([...currentStats.weakAreas, ...weakAreas])], // Remove duplicates
+      };
+
+      await user.save();
+    }
 
     res.status(201).json(result);
   } catch (error: any) {

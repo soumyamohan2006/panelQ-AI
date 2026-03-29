@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Briefcase, LogIn, UserPlus, LogOut, User as UserIcon } from 'lucide-react';
+import { Briefcase, LogIn, UserPlus, LogOut, User as UserIcon, Home } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
@@ -27,7 +27,14 @@ export default function Navbar() {
         </Link>
 
         <div className="nav-links">
-          <Link to="/" className="nav-link">Home</Link>
+          <button
+            onClick={() => navigate('/')}
+            className="nav-link"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+          >
+            <Home className="w-4 h-4" />
+            Home
+          </button>
           <Link to="/setup" className="nav-link">Interview</Link>
           <Link to="/dashboard" className="nav-link">Interview Room</Link>
           
@@ -44,10 +51,10 @@ export default function Navbar() {
             </>
           ) : (
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
+              <Link to="/profile" className="flex items-center gap-2 nav-link">
                 <UserIcon className="w-4 h-4" />
-                <span className="nav-link">{user.name}</span>
-              </div>
+                {user.name}
+              </Link>
               <button 
                 onClick={handleLogout}
                 className="nav-link"
