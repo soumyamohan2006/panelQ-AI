@@ -21,7 +21,7 @@ export default function Interview() {
   const location = useLocation();
   const { user } = useAuth();
 
-  const interviewType = location.state?.interviewType || 'technical';
+  const interviewType = location.state?.type || location.state?.interviewType || 'technical';
 
   useEffect(() => {
     fetchQuestions();
@@ -29,7 +29,7 @@ export default function Interview() {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get(`${API_BASE}/api/interview/questions/${interviewType}`);
+      const response = await axios.get(`${API_BASE}/api/questions`, { params: { type: interviewType } });
       setQuestions(response.data.questions);
       setIsLoading(false);
     } catch (error) {
@@ -49,7 +49,7 @@ export default function Interview() {
       setIsEvaluating(true);
 
       try {
-        const response = await axios.post(`${API_BASE}/api/interview/evaluate`, {
+        const response = await axios.post(`${API_BASE}/api/interview/submit`, {
           interviewType,
           answers: finalAnswers,
           userId: user?.id

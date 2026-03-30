@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from './context/AuthContext';
 import { motion } from 'motion/react';
-import { Lock, ArrowLeft } from 'lucide-react';
+import { Lock, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ChangePassword() {
@@ -14,6 +14,8 @@ export default function ChangePassword() {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [show, setShow] = useState({ oldPassword: false, newPassword: false, confirmPassword: false });
+  const toggleShow = (key: keyof typeof show) => setShow(prev => ({ ...prev, [key]: !prev[key] }));
 
   const handleChange = (key: keyof typeof form, value: string) => {
     setForm(prev => ({ ...prev, [key]: value }));
@@ -109,36 +111,45 @@ export default function ChangePassword() {
             )}
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <div>
+              <div style={{ position: 'relative' }}>
                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>Current Password</label>
                 <input
-                  type="password"
+                  type={show.oldPassword ? 'text' : 'password'}
                   value={form.oldPassword}
                   onChange={e => handleChange('oldPassword', e.target.value)}
                   required
-                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255,255,255,0.05)', border: '1px solid #555', borderRadius: '0.5rem', color: 'white' }}
+                  style={{ width: '100%', padding: '0.75rem 2.5rem 0.75rem 0.75rem', background: 'rgba(255,255,255,0.05)', border: '1px solid #555', borderRadius: '0.5rem', color: 'white', boxSizing: 'border-box' }}
                 />
+                <button type="button" onClick={() => toggleShow('oldPassword')} style={{ position: 'absolute', bottom: '0.75rem', right: '0.75rem', background: 'transparent', border: 'none', color: '#ccc', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}>
+                  {show.oldPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
               </div>
-              <div>
+              <div style={{ position: 'relative' }}>
                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>New Password</label>
                 <input
-                  type="password"
+                  type={show.newPassword ? 'text' : 'password'}
                   value={form.newPassword}
                   onChange={e => handleChange('newPassword', e.target.value)}
                   required
                   minLength={6}
-                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255,255,255,0.05)', border: '1px solid #555', borderRadius: '0.5rem', color: 'white' }}
+                  style={{ width: '100%', padding: '0.75rem 2.5rem 0.75rem 0.75rem', background: 'rgba(255,255,255,0.05)', border: '1px solid #555', borderRadius: '0.5rem', color: 'white', boxSizing: 'border-box' }}
                 />
+                <button type="button" onClick={() => toggleShow('newPassword')} style={{ position: 'absolute', bottom: '0.75rem', right: '0.75rem', background: 'transparent', border: 'none', color: '#ccc', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}>
+                  {show.newPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
               </div>
-              <div>
+              <div style={{ position: 'relative' }}>
                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>Confirm New Password</label>
                 <input
-                  type="password"
+                  type={show.confirmPassword ? 'text' : 'password'}
                   value={form.confirmPassword}
                   onChange={e => handleChange('confirmPassword', e.target.value)}
                   required
-                  style={{ width: '100%', padding: '0.75rem', background: 'rgba(255,255,255,0.05)', border: '1px solid #555', borderRadius: '0.5rem', color: 'white' }}
+                  style={{ width: '100%', padding: '0.75rem 2.5rem 0.75rem 0.75rem', background: 'rgba(255,255,255,0.05)', border: '1px solid #555', borderRadius: '0.5rem', color: 'white', boxSizing: 'border-box' }}
                 />
+                <button type="button" onClick={() => toggleShow('confirmPassword')} style={{ position: 'absolute', bottom: '0.75rem', right: '0.75rem', background: 'transparent', border: 'none', color: '#ccc', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}>
+                  {show.confirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
               </div>
               <button
                 type="submit"

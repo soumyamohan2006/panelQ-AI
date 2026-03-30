@@ -22,7 +22,7 @@ export default function Navbar() {
       style={isInterviewPage ? { background: '#000000', backdropFilter: 'none', borderBottom: '1px solid #333' } : {}}
     >
       <div className="nav-container">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2" style={{ cursor: 'pointer' }}>
           <span className="logo">Panel<span className="logo-accent">Q</span></span>
         </Link>
 
@@ -58,7 +58,7 @@ export default function Navbar() {
               <button 
                 onClick={handleLogout}
                 className="nav-link"
-                style={{ color: '#f87171' }}
+                style={{ color: '#f87171', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
               >
                 <LogOut className="w-4 h-4" />
                 Logout

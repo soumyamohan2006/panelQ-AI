@@ -54,9 +54,8 @@ export default function Login() {
               style={{ width: '100%', padding: '0.875rem 2.5rem 0.875rem 1rem', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '0.75rem', color: 'white', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' }} />
             <button type="button" onClick={() => setShowPassword(prev => !prev)} style={{
               position: 'absolute',
-              top: '50%',
+              bottom: '0.75rem',
               right: '0.75rem',
-              transform: 'translateY(-50%)',
               background: 'transparent',
               border: 'none',
               color: '#ccc',

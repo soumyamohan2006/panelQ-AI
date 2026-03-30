@@ -152,7 +152,7 @@ export default function Profile() {
   if (isEditing) {
     return (
       <div style={{ background: '#0d0d0d', minHeight: '100vh', color: 'white', fontFamily: 'Segoe UI, sans-serif' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem', paddingTop: '6rem' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
               <button
@@ -267,7 +267,7 @@ export default function Profile() {
 
   return (
     <div style={{ background: '#0d0d0d', minHeight: '100vh', color: 'white', fontFamily: 'Segoe UI, sans-serif' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem', paddingTop: '6rem' }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           {/* Header */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2rem' }}>

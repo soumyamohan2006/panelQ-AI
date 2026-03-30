@@ -14,6 +14,7 @@ import ChatInterview from './ChatInterview';
 import Preparation from './Preparation';
 import Profile from './Profile';
 import ChangePassword from './ChangePassword';
+import JobHunter from './JobHunter';
 
 function Layout() {
   const location = useLocation();
@@ -62,6 +63,7 @@ function Layout() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/job-hunter" element={<JobHunter />} />
             <Route 
               path="/change-password"
               element={

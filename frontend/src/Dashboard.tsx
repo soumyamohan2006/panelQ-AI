@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard, BookOpen, Wrench, Mic2, BriefcaseBusiness,
-  GraduationCap, Monitor, ChevronDown, ChevronRight, Search
+  BookOpen, BriefcaseBusiness, Monitor, Search
 } from 'lucide-react';
 import InterviewerCard from './components/InterviewerCard';
 import styles from './Dashboard.module.css';
@@ -22,7 +21,6 @@ const interviewers = [
 ];
 
 export default function Dashboard() {
-  const [toolsOpen, setToolsOpen]   = useState(true);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [search, setSearch]         = useState('');
   const navigate = useNavigate();
@@ -35,41 +33,20 @@ export default function Dashboard() {
   return (
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
-        <div className={styles.sidebarLogo}>
+        <div className={styles.sidebarLogo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <span className={styles.logoIcon}>⚡</span>
           <span className={styles.logoText}>PanelQ</span>
         </div>
 
         <nav className={styles.nav}>
-          <a href="#" className={styles.navItem}><LayoutDashboard size={18} /> Dashboard</a>
           <a href="/preparation" className={styles.navItem}><BookOpen size={18} /> Preparation</a>
-
-          <button className={styles.navGroup} onClick={() => setToolsOpen(o => !o)}>
-            <span className={styles.navGroupLeft}><Wrench size={18} /> Tools</span>
-            {toolsOpen ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
-          </button>
-          {toolsOpen && (
-            <div className={styles.subMenu}>
-              <a href="#" className={styles.subItem}><Mic2 size={15} /> Interview Copilot</a>
-              <a href="#" className={`${styles.subItem} ${styles.activeItem}`}><Monitor size={15} /> Mock Interview</a>
-              <a href="#" className={styles.subItem}><BriefcaseBusiness size={15} /> Job Hunter</a>
-            </div>
-          )}
-
-          <a href="#" className={styles.navItem}>
-            <GraduationCap size={18} /> Education
-            <span className={styles.badge}>Get Started</span>
-          </a>
+          <a href="#" className={`${styles.navItem} ${styles.activeItem}`}><Monitor size={15} /> Mock Interview</a>
+          <a href="/job-hunter" className={styles.navItem}><BriefcaseBusiness size={15} /> Job Hunter</a>
         </nav>
       </aside>
 
       <div className={styles.main}>
         <header className={styles.header}>
-          <span className={styles.headerLogo}></span>
-          <div className={styles.headerRight}>
-            <span className={styles.subscriptionText}>Subscription</span>
-            <button className={styles.signupBtn}>Sign up — It's Free!</button>
-          </div>
         </header>
 
         <section className={styles.content}>
