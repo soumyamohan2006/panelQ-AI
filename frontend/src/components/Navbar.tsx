@@ -3,7 +3,7 @@ import { LogIn, UserPlus, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,9 +35,6 @@ export default function Navbar() {
                 <LogIn className="w-4 h-4" />
                 Login
               </Link>
-              <Link to="/admin-login" className="nav-link flex items-center gap-2" style={{ color: '#FF6A00' }}>
-                Admin
-              </Link>
               <Link to="/register" className="btn-primary">
                 <UserPlus className="w-4 h-4" />
                 Register
@@ -45,6 +42,18 @@ export default function Navbar() {
             </>
           ) : (
             <div className="flex items-center gap-4">
+              {isAdmin && (
+                <button
+                  onClick={() => navigate('/admin')}
+                  style={{
+                    background: 'rgba(255,106,0,0.15)', border: '1px solid rgba(255,106,0,0.4)',
+                    borderRadius: '0.5rem', padding: '6px 14px',
+                    color: '#FF6A00', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600,
+                  }}
+                >
+                  ⚡ Admin Panel
+                </button>
+              )}
               <button
                 onClick={() => navigate('/profile')}
                 title="View Profile"

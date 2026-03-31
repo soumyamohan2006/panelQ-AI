@@ -9,6 +9,11 @@ import styles from './AdminPanel.module.css';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+const authHeaders = () => ({
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
+});
+
 interface User { _id: string; name: string; email: string; status: string; interviewCount: number; createdAt: string; }
 interface Interview { _id: string; userId: { name: string; email: string }; score: number; date: string; }
 interface Job { _id: string; title: string; company: string; location: string; type: string; skills: string; description: string; applyLink: string; }
@@ -50,7 +55,7 @@ export default function AdminPanel() {
   useEffect(() => {
     if (activeTab === 'dashboard') {
       setLoading(true);
-      fetch(`${API_BASE}/api/admin/stats`)
+      fetch(`${API_BASE}/api/admin/stats`, { headers: authHeaders() })
         .then(r => r.json())
         .then(data => { setStats(data); setLoading(false); drawCharts(data); })
         .catch(() => setLoading(false));
@@ -61,9 +66,9 @@ export default function AdminPanel() {
   useEffect(() => {
     if (activeTab === 'users') {
       setLoading(true);
-      fetch(`${API_BASE}/api/admin/users`)
+      fetch(`${API_BASE}/api/admin/users`, { headers: authHeaders() })
         .then(r => r.json())
-        .then(data => { setUsers(data); setLoading(false); })
+        .then(data => { setUsers(Array.isArray(data) ? data : []); setLoading(false); })
         .catch(() => setLoading(false));
     }
   }, [activeTab]);
@@ -75,9 +80,9 @@ export default function AdminPanel() {
       let url = `${API_BASE}/api/admin/interviews`;
       if (filterScore) url += `?minScore=${filterScore}`;
       if (filterDate) url += `${filterScore ? '&' : '?'}date=${filterDate}`;
-      fetch(url)
+      fetch(url, { headers: authHeaders() })
         .then(r => r.json())
-        .then(data => { setInterviews(data); setLoading(false); })
+        .then(data => { setInterviews(Array.isArray(data) ? data : []); setLoading(false); })
         .catch(() => setLoading(false));
     }
   }, [activeTab, filterScore, filterDate]);
@@ -86,9 +91,9 @@ export default function AdminPanel() {
   useEffect(() => {
     if (activeTab === 'jobs') {
       setLoading(true);
-      fetch(`${API_BASE}/api/admin/jobs`)
+      fetch(`${API_BASE}/api/admin/jobs`, { headers: authHeaders() })
         .then(r => r.json())
-        .then(data => { setJobs(data); setLoading(false); })
+        .then(data => { setJobs(Array.isArray(data) ? data : []); setLoading(false); })
         .catch(() => setLoading(false));
     }
   }, [activeTab]);
@@ -97,7 +102,7 @@ export default function AdminPanel() {
   useEffect(() => {
     if (activeTab === 'analytics') {
       setLoading(true);
-      fetch(`${API_BASE}/api/admin/analytics`)
+      fetch(`${API_BASE}/api/admin/analytics`, { headers: authHeaders() })
         .then(r => r.json())
         .then(data => { setAnalytics(data); setLoading(false); })
         .catch(() => setLoading(false));
@@ -174,23 +179,23 @@ export default function AdminPanel() {
 
   const deleteUser = async (id: string) => {
     if (!confirm('Delete this user?')) return;
-    await fetch(`${API_BASE}/api/admin/users/${id}`, { method: 'DELETE' });
+    await fetch(`${API_BASE}/api/admin/users/${id}`, { method: 'DELETE', headers: authHeaders() });
     setUsers(users.filter(u => u._id !== id));
   };
 
   const blockUser = async (id: string) => {
-    await fetch(`${API_BASE}/api/admin/users/${id}/block`, { method: 'PATCH' });
+    await fetch(`${API_BASE}/api/admin/users/${id}/block`, { method: 'PATCH', headers: authHeaders() });
     setUsers(users.map(u => u._id === id ? { ...u, status: u.status === 'Active' ? 'Blocked' : 'Active' } : u));
   };
 
   const saveJob = async () => {
     if (!jobForm.title || !jobForm.company) { alert('Fill required fields'); return; }
     if (editingJob) {
-      await fetch(`${API_BASE}/api/admin/jobs/${editingJob}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(jobForm) });
+      await fetch(`${API_BASE}/api/admin/jobs/${editingJob}`, { method: 'PUT', headers: authHeaders(), body: JSON.stringify(jobForm) });
       setJobs(jobs.map(j => j._id === editingJob ? { ...j, ...jobForm } : j));
       setEditingJob(null);
     } else {
-      const res = await fetch(`${API_BASE}/api/admin/jobs`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(jobForm) });
+      const res = await fetch(`${API_BASE}/api/admin/jobs`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(jobForm) });
       const newJob = await res.json();
       setJobs([newJob, ...jobs]);
     }
@@ -199,7 +204,7 @@ export default function AdminPanel() {
 
   const deleteJob = async (id: string) => {
     if (!confirm('Delete this job?')) return;
-    await fetch(`${API_BASE}/api/admin/jobs/${id}`, { method: 'DELETE' });
+    await fetch(`${API_BASE}/api/admin/jobs/${id}`, { method: 'DELETE', headers: authHeaders() });
     setJobs(jobs.filter(j => j._id !== id));
   };
 
