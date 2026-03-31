@@ -16,9 +16,9 @@ coverage/
 # *.webp
 # *.ico
 
-# # Videos
-# *.mp4
-# *.webm
-# *.mov
-# *.avi
-# *.mkv
+# Videos
+*.mp4
+*.webm
+*.mov
+*.avi
+*.mkv
