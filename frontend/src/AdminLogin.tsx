@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogIn, Lock, Shield } from 'lucide-react';
+import { LogIn, Lock, Shield, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from './context/AuthContext';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -9,6 +9,7 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -131,14 +132,14 @@ export default function AdminLogin() {
             </label>
             <div style={{ position: 'relative' }}>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
                 placeholder="••••••••"
                 style={{
                   width: '100%',
-                  padding: '0.875rem 1rem 0.875rem 2.75rem',
+                  padding: '0.875rem 2.75rem 0.875rem 2.75rem',
                   background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 106, 0, 0.3)',
                   borderRadius: '0.75rem',
@@ -158,6 +159,10 @@ export default function AdminLogin() {
                 }}
               />
               <Lock style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', width: '18px', height: '18px', color: '#FF6A00', opacity: 0.6 }} />
+              <button type="button" onClick={() => setShowPassword(!showPassword)}
+                style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#999', display: 'flex', alignItems: 'center' }}>
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
           </div>
 
