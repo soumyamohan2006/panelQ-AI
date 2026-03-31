@@ -1,7 +1,5 @@
-import { ReactNode } from 'react';
-import { motion } from 'motion/react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Briefcase, LogIn, UserPlus, LogOut, User as UserIcon } from 'lucide-react';
+import { LogIn, UserPlus, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
@@ -37,6 +35,9 @@ export default function Navbar() {
                 <LogIn className="w-4 h-4" />
                 Login
               </Link>
+              <Link to="/admin-login" className="nav-link flex items-center gap-2" style={{ color: '#FF6A00' }}>
+                Admin
+              </Link>
               <Link to="/register" className="btn-primary">
                 <UserPlus className="w-4 h-4" />
                 Register
@@ -44,14 +45,33 @@ export default function Navbar() {
             </>
           ) : (
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <UserIcon className="w-4 h-4" />
-                <span className="nav-link">{user.name}</span>
-              </div>
-              <button 
+              <button
+                onClick={() => navigate('/profile')}
+                title="View Profile"
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '999px', padding: '6px 14px 6px 8px',
+                  color: '#f0f0f0', cursor: 'pointer', transition: 'background 0.2s',
+                  fontSize: '0.875rem', fontWeight: 500,
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(249,115,22,0.15)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
+              >
+                <span style={{
+                  width: 28, height: 28, borderRadius: '50%',
+                  background: 'linear-gradient(135deg,#ff6a00,#cc3700)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.8rem', fontWeight: 800, color: '#fff', flexShrink: 0,
+                }}>
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+                {user.name}
+              </button>
+              <button
                 onClick={handleLogout}
                 className="nav-link"
-                style={{ color: '#f87171' }}
+                style={{ color: '#f87171', display: 'flex', alignItems: 'center', gap: '6px' }}
               >
                 <LogOut className="w-4 h-4" />
                 Logout

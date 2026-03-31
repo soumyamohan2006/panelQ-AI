@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard, BookOpen, Wrench, Mic2, BriefcaseBusiness,
-  GraduationCap, Monitor, ChevronDown, ChevronRight, Search
+  LayoutDashboard, BookOpen, Wrench,
+  BriefcaseBusiness, GraduationCap, Monitor, ChevronDown, ChevronRight, Search
 } from 'lucide-react';
 import InterviewerCard from './components/InterviewerCard';
 import styles from './Dashboard.module.css';
 
 const interviewers = [
   { id: 1,  name: 'Standard Interviewer', subtitle: 'General Interview',      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=standard' },
-  { id: 2,  name: 'Elon Musk',            subtitle: 'Tesla / SpaceX',         avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=elon' },
-  { id: 3,  name: 'Donald Trump',         subtitle: 'The Trump Organization', avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=trump' },
-  { id: 4,  name: 'Satya Nadella',        subtitle: 'Microsoft',              avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=satya' },
-  { id: 5,  name: 'Mark Zuckerberg',      subtitle: 'Meta',                   avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=mark' },
-  { id: 6,  name: 'Steve Jobs',           subtitle: 'Apple',                  avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=steve' },
-  { id: 7,  name: 'Sam Altman',           subtitle: 'OpenAI',                 avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=sam' },
-  { id: 8,  name: 'Mel Robbins',          subtitle: 'Motivational Speaker',   avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=mel' },
-  { id: 9,  name: 'SWE — Amazon',         subtitle: 'Software Engineer',      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=amazon' },
-  { id: 10, name: 'SWE — Oracle',         subtitle: 'Software Engineer',      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=oracle' },
-  { id: 11, name: 'SWE — Microsoft',      subtitle: 'Software Engineer',      avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=msft' },
+  { id: 2,  name: 'Elon Musk',            subtitle: 'Tesla / SpaceX',         avatar: '/elon.png' },
+  { id: 3,  name: 'Donald Trump',         subtitle: 'The Trump Organization', avatar: '/trump.png' },
+  { id: 4,  name: 'Satya Nadella',        subtitle: 'Microsoft',              avatar: '/satya.png' },
+  { id: 5,  name: 'Mark Zuckerberg',      subtitle: 'Meta',                   avatar: '/suker.png' },
+  { id: 6,  name: 'Steve Jobs',           subtitle: 'Apple',                  avatar: '/steve.png' },
+  { id: 7,  name: 'Sam Altman',           subtitle: 'OpenAI',                 avatar: '/sam.png' },
+  { id: 8,  name: 'Mel Robbins',          subtitle: 'Motivational Speaker',   avatar: '/mel.png' },
+  { id: 9,  name: 'SWE — Amazon',         subtitle: 'Software Engineer',      avatar: '/swe-amazon.png' },
+  { id: 10, name: 'SWE — Oracle',         subtitle: 'Software Engineer',      avatar: '/swe-oracle.png' },
+  { id: 11, name: 'SWE — Microsoft',      subtitle: 'Software Engineer',      avatar: '/swe-microsoft.png' },
 ];
 
 export default function Dashboard() {
@@ -35,13 +35,13 @@ export default function Dashboard() {
   return (
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
-        <div className={styles.sidebarLogo}>
+        <div className={styles.sidebarLogo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <span className={styles.logoIcon}>⚡</span>
           <span className={styles.logoText}>PanelQ</span>
         </div>
 
         <nav className={styles.nav}>
-          <a href="#" className={styles.navItem}><LayoutDashboard size={18} /> Dashboard</a>
+          <a href="/dashboard" className={styles.navItem}><LayoutDashboard size={18} /> Dashboard</a>
           <a href="/preparation" className={styles.navItem}><BookOpen size={18} /> Preparation</a>
 
           <button className={styles.navGroup} onClick={() => setToolsOpen(o => !o)}>
@@ -50,9 +50,8 @@ export default function Dashboard() {
           </button>
           {toolsOpen && (
             <div className={styles.subMenu}>
-              <a href="#" className={styles.subItem}><Mic2 size={15} /> Interview Copilot</a>
               <a href="#" className={`${styles.subItem} ${styles.activeItem}`}><Monitor size={15} /> Mock Interview</a>
-              <a href="#" className={styles.subItem}><BriefcaseBusiness size={15} /> Job Hunter</a>
+              <a href="/job-hunter" className={styles.subItem}><BriefcaseBusiness size={15} /> Job Hunter</a>
             </div>
           )}
 

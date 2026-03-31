@@ -4,6 +4,7 @@ import cors from 'cors';
 import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
 import interviewRoutes from './routes/interviewRoutes';
+import adminRoutes from './routes/adminRoutes';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ async function startServer() {
   // --- API Routes ---
   app.use('/api', authRoutes);
   app.use('/api', interviewRoutes);
+  app.use('/api', adminRoutes);
 
   app.get('/', (req, res) => {
     res.send('PanelQ API is running. Direct frontend access is on port 5173.');

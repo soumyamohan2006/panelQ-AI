@@ -27,7 +27,7 @@ export default function Register() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Registration failed');
-      login(data.token, { id: data._id, name: data.name, email: data.email });
+      login(data.token, { id: data._id, name: data.name, email: data.email, isAdmin: data.isAdmin });
       navigate('/');
     } catch (err: any) {
       setError(err.message);
