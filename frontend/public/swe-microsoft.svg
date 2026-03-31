@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bgM" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0a0a1e"/>
+      <stop offset="100%" stop-color="#050510"/>
+    </radialGradient>
+    <radialGradient id="skinM" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fad5b0"/>
+      <stop offset="100%" stop-color="#e0a878"/>
+    </radialGradient>
+    <clipPath id="circleM">
+      <circle cx="100" cy="100" r="100"/>
+    </clipPath>
+  </defs>
+  <circle cx="100" cy="100" r="100" fill="url(#bgM)"/>
+  <g clip-path="url(#circleM)">
+    <!-- Suit -->
+    <ellipse cx="100" cy="185" rx="62" ry="45" fill="#0a1628"/>
+    <ellipse cx="100" cy="178" rx="28" ry="30" fill="#f0f4ff"/>
+    <!-- Microsoft-colored tie -->
+    <polygon points="100,155 95,185 100,190 105,185" fill="#00a4ef"/>
+    <path d="M72,160 Q85,155 100,158 Q115,155 128,160 L135,200 L65,200 Z" fill="#0a1628"/>
+    <path d="M100,158 L88,175 L72,160 Z" fill="#142038"/>
+    <path d="M100,158 L112,175 L128,160 Z" fill="#142038"/>
+    <!-- Neck -->
+    <rect x="88" y="138" width="24" height="22" rx="8" fill="url(#skinM)"/>
+    <!-- Head -->
+    <ellipse cx="100" cy="115" rx="38" ry="42" fill="url(#skinM)"/>
+    <!-- Hair - neat dark brown -->
+    <path d="M62,102 Q60,78 70,66 Q82,56 100,54 Q118,56 130,66 Q140,78 138,102" fill="#2a1500"/>
+    <ellipse cx="100" cy="74" rx="36" ry="17" fill="#2a1500"/>
+    <!-- Side part detail -->
+    <path d="M68,80 Q75,70 100,68" stroke="#1a0a00" stroke-width="3" fill="none"/>
+    <ellipse cx="64" cy="106" rx="7" ry="13" fill="#2a1500"/>
+    <ellipse cx="136" cy="106" rx="7" ry="13" fill="#2a1500"/>
+    <!-- Eyes -->
+    <ellipse cx="85" cy="112" rx="7" ry="5.5" fill="white"/>
+    <ellipse cx="115" cy="112" rx="7" ry="5.5" fill="white"/>
+    <circle cx="86" cy="113" r="3.5" fill="#2a3a1a"/>
+    <circle cx="116" cy="113" r="3.5" fill="#2a3a1a"/>
+    <circle cx="87" cy="112" r="1.2" fill="white"/>
+    <circle cx="117" cy="112" r="1.2" fill="white"/>
+    <!-- Eyebrows -->
+    <path d="M78,104 Q85,100 92,103" stroke="#2a1500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M108,103 Q115,100 122,104" stroke="#2a1500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M98,118 Q96,127 98,131 Q100,133 102,131 Q104,127 102,118" stroke="#c09060" stroke-width="1.5" fill="none"/>
+    <!-- Mouth - confident smile -->
+    <path d="M89,138 Q100,146 111,138" stroke="#b08060" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M91,139 Q100,144 109,139" stroke="#d4a080" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <!-- Ears -->
+    <ellipse cx="62" cy="118" rx="6" ry="9" fill="url(#skinM)"/>
+    <ellipse cx="138" cy="118" rx="6" ry="9" fill="url(#skinM)"/>
+    <!-- Subtle beard shadow -->
+    <ellipse cx="100" cy="138" rx="22" ry="8" fill="#c09878" opacity="0.3"/>
+  </g>
+  <!-- Microsoft flag ring -->
+  <circle cx="100" cy="100" r="97" fill="none" stroke="#00a4ef" stroke-width="3"/>
+</svg>
