@@ -6,3 +6,19 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+*.ico
+
+# Videos
+*.mp4
+*.webm
+*.mov
+*.avi
+*.mkv

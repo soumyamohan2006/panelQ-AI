@@ -1,9 +1,18 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import User from './models/User';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const User = mongoose.model('User', userSchema);
 
 const seedAdmin = async () => {
   try {
@@ -13,28 +22,23 @@ const seedAdmin = async () => {
     const adminEmail = 'admin@campus.com';
     const adminPassword = 'Admin@123';
 
-    let admin = await User.findOne({ email: adminEmail });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(adminPassword, salt);
 
-    if (admin) {
-      admin.isAdmin = true;
-      await admin.save();
-      console.log(`✅ Admin privileges granted to ${adminEmail}`);
+    const existing = await User.findOne({ email: adminEmail });
+
+    if (existing) {
+      existing.set({ isAdmin: true, password: hashedPassword });
+      await existing.save();
+      console.log(`✅ Admin updated: ${adminEmail}`);
     } else {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(adminPassword, salt);
-
-      admin = await User.create({
-        name: 'Admin',
-        email: adminEmail,
-        password: hashedPassword,
-        isAdmin: true,
-      });
-      console.log(`✅ Admin user created: ${adminEmail}`);
-      console.log(`📝 Password: ${adminPassword}`);
+      await User.create({ name: 'Admin', email: adminEmail, password: hashedPassword, isAdmin: true });
+      console.log(`✅ Admin created: ${adminEmail}`);
     }
 
+    console.log(`📝 Email: ${adminEmail}`);
+    console.log(`📝 Password: ${adminPassword}`);
     await mongoose.connection.close();
-    console.log('Database connection closed');
   } catch (error: any) {
     console.error('❌ Error:', error.message);
     process.exit(1);
