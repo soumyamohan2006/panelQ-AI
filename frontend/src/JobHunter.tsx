@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Search, MapPin, Building2, FileText, Download, Upload,
@@ -11,6 +11,7 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // ── Types ──
 interface Job { id: number; title: string; company: string; location: string; type: string; match?: number; }
+interface AdminJob { _id: string; title: string; company: string; location: string; type: string; skills: string; description: string; applyLink: string; }
 interface TrackerEntry { id: number; company: string; role: string; status: 'Applied' | 'Interview Scheduled' | 'Selected' | 'Rejected'; date: string; }
 
 // ── Mock job data ──
@@ -189,6 +190,14 @@ ${resume.certifications ? `<h2>Certifications</h2><p class="cert">${resume.certi
   };
 
   const [activeSection, setActiveSection] = useState<string>('search');
+
+  const [adminJobs, setAdminJobs] = useState<AdminJob[]>([]);
+  useEffect(() => {
+    fetch(`${API_BASE}/api/jobs`)
+      .then(r => r.json())
+      .then(data => setAdminJobs(Array.isArray(data) ? data : []))
+      .catch(() => {});
+  }, []);
 
   const sections = [
     { id: 'search',    label: '🔍 Job Search' },
@@ -570,28 +579,39 @@ ${resume.certifications ? `<h2>Certifications</h2><p class="cert">${resume.certi
         {activeSection === 'recommend' && (
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}><Briefcase size={18} /> Job Recommendations</h2>
-            <p className={styles.sectionSub}>Based on your interview performance and skills</p>
-            <div className={styles.jobGrid}>
-              {[...ALL_JOBS].sort((a, b) => (b.match || 0) - (a.match || 0)).map(job => (
-                <div key={job.id} className={styles.jobCard}>
-                  <div className={styles.jobTop}>
-                    <div>
-                      <h3 className={styles.jobTitle}>{job.title}</h3>
-                      <p className={styles.jobMeta}><Building2 size={13} /> {job.company}</p>
-                      <p className={styles.jobMeta}><MapPin size={13} /> {job.location}</p>
+            <p className={styles.sectionSub}>Latest jobs posted by admin</p>
+            {adminJobs.length === 0 ? (
+              <div className={styles.emptyState}>
+                <Briefcase size={48} className={styles.emptyIcon} />
+                <p>No job recommendations available yet. Check back soon!</p>
+              </div>
+            ) : (
+              <div className={styles.jobGrid}>
+                {adminJobs.map(job => (
+                  <div key={job._id} className={styles.jobCard}>
+                    <div className={styles.jobTop}>
+                      <div>
+                        <h3 className={styles.jobTitle}>{job.title}</h3>
+                        <p className={styles.jobMeta}><Building2 size={13} /> {job.company}</p>
+                        <p className={styles.jobMeta}><MapPin size={13} /> {job.location}</p>
+                      </div>
                     </div>
-                    <div className={styles.matchBadge} style={{ background: (job.match || 0) >= 85 ? 'rgba(34,197,94,0.15)' : 'rgba(255,106,0,0.15)', color: (job.match || 0) >= 85 ? '#22c55e' : '#ff6a00' }}>
-                      {job.match}% match
+                    {job.description && <p style={{ fontSize: '0.82rem', color: '#aaa', margin: '0.5rem 0' }}>{job.description.slice(0, 100)}{job.description.length > 100 ? '...' : ''}</p>}
+                    {job.skills && <p style={{ fontSize: '0.8rem', color: '#FF6A00', marginBottom: '0.5rem' }}>🛠 {job.skills}</p>}
+                    <span className={styles.typeBadge}>{job.type}</span>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}>
+                      {job.applyLink && (
+                        <a href={job.applyLink} target="_blank" rel="noreferrer" className={styles.applyBtn} style={{ textDecoration: 'none', textAlign: 'center' }}>Apply Now</a>
+                      )}
+                      <button className={styles.applyBtn} style={{ background: 'rgba(255,106,0,0.15)', color: '#FF6A00' }} onClick={() => {
+                        setTracker(t => [...t, { id: Date.now(), company: job.company, role: job.title, status: 'Applied', date: new Date().toISOString().split('T')[0] }]);
+                        setActiveSection('tracker');
+                      }}>Track</button>
                     </div>
                   </div>
-                  <span className={styles.typeBadge}>{job.type}</span>
-                  <button className={styles.applyBtn} onClick={() => {
-                    setTracker(t => [...t, { id: Date.now(), company: job.company, role: job.title, status: 'Applied', date: new Date().toISOString().split('T')[0] }]);
-                    setActiveSection('tracker');
-                  }}>Apply & Track</button>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </section>
         )}
 

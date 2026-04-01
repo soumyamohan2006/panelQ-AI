@@ -88,7 +88,12 @@ router.get('/admin/interviews', protect, adminOnly, async (req: Request, res: Re
   } catch (e: any) { res.status(500).json({ message: e.message }); }
 });
 
-// ── Job Management ──
+router.get('/jobs', async (_req: Request, res: Response) => {
+  try { res.json(await Job.find().sort({ postedAt: -1 })); }
+  catch (e: any) { res.status(500).json({ message: e.message }); }
+});
+
+// ── Job Management (Admin) ──
 router.get('/admin/jobs', protect, adminOnly, async (_req: Request, res: Response) => {
   try { res.json(await Job.find().sort({ postedAt: -1 })); }
   catch (e: any) { res.status(500).json({ message: e.message }); }
