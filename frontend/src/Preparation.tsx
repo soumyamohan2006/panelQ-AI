@@ -30,6 +30,33 @@ const resources = [
     filename: 'Work_Samples.pdf',
     color: '#cc3700',
   },
+  {
+    id: 4,
+    company: 'TCS NQT Ninja',
+    category: 'Placement Paper',
+    description: 'TCS NQT Ninja 2019-2020 placement paper with aptitude and reasoning questions.',
+    file: '/TCS-NQT_NINJA_2019-2020_copy.pdf',
+    filename: 'TCS_NQT_Ninja_2019-2020.pdf',
+    color: '#3b82f6',
+  },
+  {
+    id: 5,
+    company: 'Infosys',
+    category: 'Placement Paper',
+    description: 'Infosys aptitude model papers for placement preparation and practice.',
+    file: '/INFOSYS -APTITUDE-MODEL PAPERS_1473177928759_copy.pdf',
+    filename: 'Infosys_Aptitude_Model_Papers.pdf',
+    color: '#8b5cf6',
+  },
+  {
+    id: 6,
+    company: 'Cognizant',
+    category: 'Placement Paper',
+    description: 'Cognizant quantitative aptitude placement papers for interview preparation.',
+    file: '/Cognizant-Quantitativ-Aptitude-Placement-Papers.pdf',
+    filename: 'Cognizant_Aptitude_Papers.pdf',
+    color: '#06b6d4',
+  },
 ];
 
 export default function Preparation() {

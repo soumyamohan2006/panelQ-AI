@@ -31,6 +31,8 @@ export default function UserProfile() {
   const [pwForm, setPwForm] = useState({ current: '', next: '', confirm: '' });
   const [pwMsg, setPwMsg] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
+  const [emailMsg, setEmailMsg] = useState('');
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -103,6 +105,23 @@ export default function UserProfile() {
   const handleDeleteAccount = () => {
     logout();
     navigate('/');
+  };
+
+  const handleEmailProgress = async () => {
+    setEmailSending(true);
+    setEmailMsg('');
+    try {
+      const res = await fetch(`${API_BASE}/api/email/progress`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      setEmailMsg(data.message);
+    } catch {
+      setEmailMsg('Failed to send email. Try again.');
+    } finally {
+      setEmailSending(false);
+    }
   };
 
   if (!user) return null;
@@ -279,6 +298,28 @@ export default function UserProfile() {
                   <input defaultValue={user.email} className={styles.input} type="email" />
                   <button className={styles.saveBtn} type="submit">Save Changes</button>
                 </form>
+                <div style={{ marginTop: '1rem', borderTop: '1px solid #222', paddingTop: '1rem' }}>
+                  <p style={{ color: '#aaa', fontSize: '0.85rem', marginBottom: '0.75rem' }}>
+                    Send your interview progress report to <b style={{ color: '#fff' }}>{user.email}</b>
+                  </p>
+                  <button
+                    onClick={handleEmailProgress}
+                    disabled={emailSending || results.length === 0}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '0.5rem',
+                      padding: '0.75rem 1.25rem',
+                      background: 'linear-gradient(135deg,#FF6A00,#cc3700)',
+                      color: 'white', border: 'none', borderRadius: '0.75rem',
+                      fontWeight: 600, cursor: emailSending || results.length === 0 ? 'not-allowed' : 'pointer',
+                      opacity: emailSending || results.length === 0 ? 0.6 : 1,
+                      fontSize: '0.875rem',
+                    }}
+                  >
+                    <Mail size={15} />
+                    {emailSending ? 'Sending...' : 'Email My Progress Report'}
+                  </button>
+                  {emailMsg && <p style={{ marginTop: '0.5rem', color: emailMsg.includes('sent') ? '#22c55e' : '#f87171', fontSize: '0.85rem' }}>{emailMsg}</p>}
+                </div>
               </div>
 
               {/* Change Password */}

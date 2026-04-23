@@ -66,8 +66,6 @@ export default function Dashboard() {
         <header className={styles.header}>
           <span className={styles.headerLogo}></span>
           <div className={styles.headerRight}>
-            <span className={styles.subscriptionText}>Subscription</span>
-            <button className={styles.signupBtn}>Sign up — It's Free!</button>
           </div>
         </header>
 

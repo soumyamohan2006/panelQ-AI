@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LogIn, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from './context/AuthContext';
 
@@ -14,6 +14,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +29,8 @@ export default function Login() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Login failed');
       login(data.token, { id: data._id, name: data.name, email: data.email, isAdmin: data.isAdmin });
-      navigate('/');
+      const from = (location.state as any)?.from?.pathname || '/';
+      navigate(from, { replace: true });
     } catch (err: any) {
       setError(err.message);
     } finally {

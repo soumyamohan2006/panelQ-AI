@@ -27,11 +27,11 @@ function Layout() {
       {!hideNav && <Navbar />}
       <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/chat-interview" element={<ChatInterview />} />
-            <Route path="/preparation" element={<Preparation />} />
-            <Route path="/profile" element={<UserProfile />} />
-            <Route path="/job-hunter" element={<JobHunter />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/chat-interview" element={<ProtectedRoute><ChatInterview /></ProtectedRoute>} />
+            <Route path="/preparation" element={<ProtectedRoute><Preparation /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+            <Route path="/job-hunter" element={<ProtectedRoute><JobHunter /></ProtectedRoute>} />
             <Route path="/admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin-login" element={<AdminLogin />} />
