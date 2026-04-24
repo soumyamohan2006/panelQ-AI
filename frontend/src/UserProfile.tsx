@@ -8,7 +8,7 @@ import {
 import { useAuth } from './context/AuthContext';
 import styles from './UserProfile.module.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://panelq-ai-2.onrender.com';
 
 interface InterviewResult {
   _id: string;

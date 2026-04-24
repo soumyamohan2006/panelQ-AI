@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import styles from './AdminPanel.module.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://panelq-ai-2.onrender.com';
 
 const authHeaders = () => ({
   'Content-Type': 'application/json',

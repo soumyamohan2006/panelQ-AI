@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import styles from './JobHunter.module.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://panelq-ai-2.onrender.com';
 
 // ── Types ──
 interface Job { id: number; title: string; company: string; location: string; type: string; match?: number; }
