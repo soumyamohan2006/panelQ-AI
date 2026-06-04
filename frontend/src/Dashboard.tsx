@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, BookOpen, Wrench,
   BriefcaseBusiness, GraduationCap, Monitor, ChevronDown, ChevronRight, Search
@@ -41,8 +41,8 @@ export default function Dashboard() {
         </div>
 
         <nav className={styles.nav}>
-          <a href="/dashboard" className={styles.navItem}><LayoutDashboard size={18} /> Dashboard</a>
-          <a href="/preparation" className={styles.navItem}><BookOpen size={18} /> Preparation</a>
+          <Link to="/dashboard" className={styles.navItem}><LayoutDashboard size={18} /> Dashboard</Link>
+          <Link to="/preparation" className={styles.navItem}><BookOpen size={18} /> Preparation</Link>
 
           <button className={styles.navGroup} onClick={() => setToolsOpen(o => !o)}>
             <span className={styles.navGroupLeft}><Wrench size={18} /> Tools</span>
@@ -51,7 +51,7 @@ export default function Dashboard() {
           {toolsOpen && (
             <div className={styles.subMenu}>
               <a href="#" className={`${styles.subItem} ${styles.activeItem}`}><Monitor size={15} /> Mock Interview</a>
-              <a href="/job-hunter" className={styles.subItem}><BriefcaseBusiness size={15} /> Job Hunter</a>
+              <Link to="/job-hunter" className={styles.subItem}><BriefcaseBusiness size={15} /> Job Hunter</Link>
             </div>
           )}
 

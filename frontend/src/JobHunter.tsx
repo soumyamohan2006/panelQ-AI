@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Search, MapPin, Building2, FileText, Download, Upload,
   Sparkles, Briefcase, PlusCircle, Trash2, CheckCircle,
@@ -347,9 +347,9 @@ export default function JobHunter() {
           <span className={styles.logoText}>PanelQ</span>
         </div>
         <nav className={styles.nav}>
-          <a href="/dashboard" className={styles.navItem}>Dashboard</a>
-          <a href="/preparation" className={styles.navItem}>Preparation</a>
-          <a href="/job-hunter" className={`${styles.navItem} ${styles.activeNav}`}>Job Hunter</a>
+          <Link to="/dashboard" className={styles.navItem}>Dashboard</Link>
+          <Link to="/preparation" className={styles.navItem}>Preparation</Link>
+          <Link to="/job-hunter" className={`${styles.navItem} ${styles.activeNav}`}>Job Hunter</Link>
         </nav>
         <div className={styles.sectionNav}>
           {sections.map(s => (
