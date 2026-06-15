@@ -83,7 +83,7 @@ router.post('/email/progress', protect, async (req: any, res: Response) => {
           `).join('')}
 
           <div style="text-align:center;margin-top:2rem;">
-            <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/profile" 
+            <a href="${process.env.FRONTEND_URL || ''}/profile" 
                style="background:linear-gradient(135deg,#FF6A00,#cc3700);color:white;padding:0.875rem 2rem;border-radius:0.75rem;text-decoration:none;font-weight:700;">
               View Full Profile
             </a>
